@@ -42,7 +42,6 @@
             position: relative;
         }
         
-        /* Animated Background */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -92,7 +91,6 @@
             100% { transform: rotate(360deg) translate(20px, 20px); }
         }
         
-        /* Stars */
         .stars {
             position: fixed;
             top: 0;
@@ -114,7 +112,6 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
         
-        /* Password Overlay */
         #password-overlay {
             position: fixed;
             top: 0;
@@ -243,7 +240,6 @@
             font-size: 0.95rem;
         }
         
-        /* Main Content */
         #main-content {
             display: none;
             padding: 20px;
@@ -257,7 +253,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
@@ -350,7 +345,6 @@
             box-shadow: 0 8px 15px rgba(185, 242, 255, 0.3);
         }
         
-        /* Main Dashboard */
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -364,7 +358,6 @@
             }
         }
         
-        /* Upload Section */
         .upload-section {
             background: rgba(232, 245, 233, 0.95);
             border-radius: 20px;
@@ -394,7 +387,6 @@
             font-size: 1.8rem;
         }
         
-        /* Upload Form */
         .upload-form {
             display: flex;
             flex-direction: column;
@@ -445,7 +437,6 @@
             resize: vertical;
         }
         
-        /* File Upload Area */
         .file-upload-area {
             border: 3px dashed var(--gold);
             border-radius: 15px;
@@ -545,7 +536,6 @@
             box-shadow: none;
         }
         
-        /* Classified Checkbox */
         .classified-checkbox {
             display: flex;
             align-items: center;
@@ -567,7 +557,6 @@
             font-weight: 600;
         }
         
-        /* Files Section */
         .files-section {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -620,7 +609,6 @@
             box-shadow: 0 8px 15px rgba(185, 242, 255, 0.3);
         }
         
-        /* File Filters */
         .file-filters {
             display: flex;
             gap: 15px;
@@ -649,7 +637,6 @@
             transform: translateY(-2px);
         }
         
-        /* Files List */
         .files-list {
             max-height: 500px;
             overflow-y: auto;
@@ -847,7 +834,6 @@
             gap: 20px;
         }
         
-        /* Bulk Actions */
         .bulk-actions {
             display: flex;
             justify-content: space-between;
@@ -910,7 +896,6 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
         
-        /* Footer */
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -941,7 +926,6 @@
             opacity: 0.8;
         }
         
-        /* Notification */
         .notification {
             position: fixed;
             bottom: 30px;
@@ -1007,7 +991,6 @@
             font-size: 1.2rem;
         }
         
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -1027,7 +1010,6 @@
             color: #555;
         }
         
-        /* Loading Animation */
         .loading {
             display: none;
             text-align: center;
@@ -1049,73 +1031,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Download Dialog */
-        .download-dialog {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        
-        .download-dialog-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .download-dialog h3 {
-            color: var(--navy);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .download-dialog p {
-            margin-bottom: 25px;
-            color: #666;
-        }
-        
-        .download-dialog-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .dialog-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            min-width: 100px;
-        }
-        
-        .dialog-confirm {
-            background: linear-gradient(45deg, var(--green), var(--dark-green));
-            color: white;
-        }
-        
-        .dialog-cancel {
-            background: #e0e0e0;
-            color: #333;
-        }
-        
-        .dialog-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Responsive Design */
         @media (max-width: 768px) {
             .password-container {
                 padding: 30px;
@@ -1150,25 +1065,18 @@
                 flex-direction: column;
                 gap: 10px;
             }
-            
-            .download-dialog-buttons {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
     <div class="animated-bg">
         <div class="floating-shape shape-1"></div>
         <div class="floating-shape shape-2"></div>
         <div class="floating-shape shape-3"></div>
     </div>
     
-    <!-- Stars -->
     <div class="stars" id="stars-container"></div>
     
-    <!-- Password Overlay -->
     <div id="password-overlay">
         <div class="password-container">
             <h1><i class="fas fa-crown"></i> WebCred Solutions</h1>
@@ -1189,19 +1097,6 @@
         </div>
     </div>
     
-    <!-- Download Dialog -->
-    <div class="download-dialog" id="download-dialog">
-        <div class="download-dialog-content">
-            <h3>Download File</h3>
-            <p id="dialog-file-name">File Name</p>
-            <div class="download-dialog-buttons">
-                <button class="dialog-btn dialog-cancel" id="dialog-cancel">Cancel</button>
-                <button class="dialog-btn dialog-confirm" id="dialog-confirm">Download</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Main Content -->
     <div id="main-content">
         <header>
             <div class="logo">
@@ -1230,7 +1125,6 @@
         </header>
         
         <main class="dashboard">
-            <!-- Upload Section -->
             <section class="upload-section">
                 <h2 class="section-title">
                     <i class="fas fa-cloud-upload-alt"></i> Upload Files
@@ -1293,7 +1187,6 @@
                 </form>
             </section>
             
-            <!-- Files Section -->
             <section class="files-section">
                 <div class="files-header">
                     <h2 class="section-title">
@@ -1362,7 +1255,6 @@
         </footer>
     </div>
     
-    <!-- Notification -->
     <div class="notification" id="notification">
         <button class="notification-close" id="notification-close">&times;</button>
         <div class="notification-content">
@@ -1377,9 +1269,6 @@
     </div>
     
     <script>
-        // ============================================
-        // SIMPLE CONFIGURATION
-        // ============================================
         const PASSWORDS = {
             UPLOAD: "gambia@2025",
             DOWNLOAD: "gambia@@2025"
@@ -1404,7 +1293,6 @@
             ]
         };
         
-        // State
         let state = {
             currentUser: null,
             currentOrg: null,
@@ -1412,11 +1300,9 @@
             selectedFiles: [],
             uploadedFiles: [],
             allFilesSelected: false,
-            currentFilter: 'all',
-            pendingDownload: null
+            currentFilter: 'all'
         };
         
-        // DOM Elements
         const elements = {
             passwordOverlay: document.getElementById('password-overlay'),
             mainContent: document.getElementById('main-content'),
@@ -1445,16 +1331,9 @@
             notificationMessage: document.getElementById('notification-message'),
             currentUserDisplay: document.getElementById('current-user'),
             userNameDisplay: document.getElementById('user-name'),
-            downloadDialog: document.getElementById('download-dialog'),
-            dialogFileName: document.getElementById('dialog-file-name'),
-            dialogCancel: document.getElementById('dialog-cancel'),
-            dialogConfirm: document.getElementById('dialog-confirm'),
             fileClassified: document.getElementById('file-classified')
         };
         
-        // ============================================
-        // UTILITY FUNCTIONS
-        // ============================================
         function createStars() {
             const starsContainer = document.getElementById('stars-container');
             const starsCount = 150;
@@ -1542,36 +1421,12 @@
             });
         }
         
-        function readFileAsText(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = () => reject(reader.error);
-                reader.readAsText(file);
-            });
-        }
-        
-        function showDownloadDialog(fileName) {
-            elements.dialogFileName.textContent = `Download "${fileName}"?`;
-            elements.downloadDialog.style.display = 'flex';
-            state.pendingDownload = fileName;
-        }
-        
-        function hideDownloadDialog() {
-            elements.downloadDialog.style.display = 'none';
-            state.pendingDownload = null;
-        }
-        
-        // ============================================
-        // CSV DOWNLOAD - FIXED & WORKING
-        // ============================================
         function downloadCSV(files, filename = 'webcred_files') {
             if (files.length === 0) {
                 showNotification('No Files', 'No files to export', 'warning');
                 return;
             }
             
-            // Create CSV headers
             const headers = [
                 'File Name',
                 'Uploader Name',
@@ -1585,10 +1440,8 @@
                 'Download Link'
             ];
             
-            // Create CSV content
             let csvContent = headers.join(',') + '\n';
             
-            // Add each file as a row
             files.forEach(file => {
                 const row = [
                     `"${file.name.replace(/"/g, '""')}"`,
@@ -1606,7 +1459,6 @@
                 csvContent += row + '\n';
             });
             
-            // Create and trigger download
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -1624,15 +1476,12 @@
             showNotification('CSV Downloaded', `${files.length} files exported to CSV`, 'success');
         }
         
-        // CSV Functions
         function exportSingleFileCSV(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (file) {
-                showDownloadDialog(`${file.name.replace(/\.[^/.]+$/, '')}.csv`);
-                elements.dialogConfirm.onclick = () => {
+                if (confirm(`Download CSV for "${file.name}"?`)) {
                     downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
-                    hideDownloadDialog();
-                };
+                }
             }
         }
         
@@ -1646,17 +1495,14 @@
                 state.selectedFiles.includes(file.id)
             );
             
-            showDownloadDialog(`selected_files_${new Date().toISOString().split('T')[0]}.csv`);
-            elements.dialogConfirm.onclick = () => {
+            if (confirm(`Export ${filesToExport.length} files to CSV?`)) {
                 downloadCSV(filesToExport, 'webcred_selected_files');
-                hideDownloadDialog();
-            };
+            }
         }
         
         function exportAllFilesCSV() {
             let filesToExport = state.uploadedFiles;
             
-            // Apply filter if active
             if (state.currentFilter === 'classified') {
                 filesToExport = filesToExport.filter(file => file.classified);
             } else if (state.currentFilter === 'csv') {
@@ -1668,16 +1514,11 @@
                 return;
             }
             
-            showDownloadDialog(`all_files_${new Date().toISOString().split('T')[0]}.csv`);
-            elements.dialogConfirm.onclick = () => {
+            if (confirm(`Export all ${filesToExport.length} files to CSV?`)) {
                 downloadCSV(filesToExport, 'webcred_all_files');
-                hideDownloadDialog();
-            };
+            }
         }
         
-        // ============================================
-        // AUTHENTICATION SYSTEM
-        // ============================================
         function checkAuth() {
             const isLoggedIn = sessionStorage.getItem('webcred_logged_in') === 'true';
             const user = sessionStorage.getItem('webcred_user');
@@ -1770,9 +1611,6 @@
             }
         }
         
-        // ============================================
-        // FILE MANAGEMENT SYSTEM
-        // ============================================
         function loadFiles() {
             elements.loadingFiles.style.display = 'block';
             elements.emptyState.style.display = 'none';
@@ -1817,7 +1655,6 @@
             
             let filesToShow = state.uploadedFiles;
             
-            // Apply filters
             if (state.currentFilter === 'classified') {
                 filesToShow = filesToShow.filter(file => file.classified);
             } else if (state.currentFilter === 'csv') {
@@ -1868,7 +1705,7 @@
                             </div>
                         </div>
                         <div class="file-actions">
-                            <button class="action-btn download-btn" onclick="initiateDownload('${file.id}')">
+                            <button class="action-btn download-btn" onclick="downloadFileNow('${file.id}')">
                                 <i class="fas fa-download"></i> Download
                             </button>
                             <button class="action-btn csv-btn" onclick="exportSingleFileCSV('${file.id}')">
@@ -1967,74 +1804,45 @@
             });
         }
         
-        function initiateDownload(fileId) {
+        function downloadFileNow(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (!file) {
                 showNotification('Error', 'File not found', 'error');
                 return;
             }
             
-            showDownloadDialog(file.name);
-            elements.dialogConfirm.onclick = () => {
-                downloadFile(fileId);
-                hideDownloadDialog();
-            };
-        }
-        
-        function downloadFile(fileId) {
-            const file = state.uploadedFiles.find(f => f.id === fileId);
-            if (!file) {
-                showNotification('Error', 'File not found', 'error');
-                return;
-            }
-            
-            try {
-                if (file.content) {
-                    const base64Data = file.content.split(',')[1];
-                    const binaryData = atob(base64Data);
-                    const bytes = new Uint8Array(binaryData.length);
-                    
-                    for (let i = 0; i < binaryData.length; i++) {
-                        bytes[i] = binaryData.charCodeAt(i);
+            if (confirm(`Download "${file.name}"?`)) {
+                try {
+                    if (file.content) {
+                        const link = document.createElement('a');
+                        link.href = file.content;
+                        link.download = file.name;
+                        link.click();
+                    } else {
+                        const content = `WebCred Solutions - File Information\n\n` +
+                                       `File Name: ${file.name}\n` +
+                                       `Uploaded By: ${file.uploaderName}\n` +
+                                       `Organization: ${file.organization}\n` +
+                                       `Purpose: ${file.purpose}\n` +
+                                       `Description: ${file.description}\n` +
+                                       `Classified: ${file.classified ? 'YES' : 'NO'}\n` +
+                                       `Upload Date: ${formatDate(file.uploadedAt)}\n` +
+                                       `File Size: ${formatFileSize(file.size)}`;
+                        
+                        const blob = new Blob([content], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = file.name.endsWith('.txt') ? file.name : `${file.name}.txt`;
+                        a.click();
+                        URL.revokeObjectURL(url);
                     }
                     
-                    const blob = new Blob([bytes.buffer], { type: 'application/octet-stream' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = file.name;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    
                     showNotification('Download Started', `Downloading "${file.name}"`, 'success');
-                } else {
-                    const content = `WebCred Solutions - File Information\n\n` +
-                                   `File Name: ${file.name}\n` +
-                                   `Uploaded By: ${file.uploaderName}\n` +
-                                   `Organization: ${file.organization}\n` +
-                                   `Purpose: ${file.purpose}\n` +
-                                   `Description: ${file.description}\n` +
-                                   `Classified: ${file.classified ? 'YES' : 'NO'}\n` +
-                                   `Upload Date: ${formatDate(file.uploadedAt)}\n` +
-                                   `File Size: ${formatFileSize(file.size)}`;
-                    
-                    const blob = new Blob([content], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = file.name.endsWith('.txt') ? file.name : `${file.name}.txt`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    
-                    showNotification('Download Started', `Downloading "${file.name}"`, 'success');
+                } catch (error) {
+                    console.error('Download error:', error);
+                    showNotification('Download Error', 'Failed to download file', 'error');
                 }
-            } catch (error) {
-                console.error('Download error:', error);
-                showNotification('Download Error', 'Failed to download file', 'error');
             }
         }
         
@@ -2048,8 +1856,7 @@
                 return;
             }
             
-            showDownloadDialog(`${filesToDownload.length}_files.zip`);
-            elements.dialogConfirm.onclick = () => {
+            if (confirm(`Download ${filesToDownload.length} selected files?`)) {
                 showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
                 
                 setTimeout(() => {
@@ -2074,15 +1881,12 @@
                     const a = document.createElement('a');
                     a.href = url;
                     a.download = `webcred_export_${new Date().toISOString().split('T')[0]}.txt`;
-                    document.body.appendChild(a);
                     a.click();
-                    document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     
                     showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
                 }, 1000);
-                hideDownloadDialog();
-            };
+            }
         }
         
         function deleteFile(fileId) {
@@ -2177,7 +1981,6 @@
         function applyFilter(filter) {
             state.currentFilter = filter;
             
-            // Update filter buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.dataset.filter === filter) {
                     btn.classList.add('active');
@@ -2190,9 +1993,6 @@
             updateFilesCount();
         }
         
-        // ============================================
-        // UPLOAD FORM HANDLING
-        // ============================================
         let selectedFilesData = [];
         
         function resetUploadForm() {
@@ -2321,9 +2121,6 @@
             }
         }
         
-        // ============================================
-        // EVENT LISTENERS
-        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
             if (!checkAuth()) {
                 createStars();
@@ -2341,7 +2138,6 @@
             
             updateUserInfo();
             
-            // Initialize filter buttons
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     applyFilter(btn.dataset.filter);
@@ -2399,13 +2195,7 @@
         
         elements.notificationClose.addEventListener('click', hideNotification);
         
-        elements.dialogCancel.addEventListener('click', hideDownloadDialog);
-        
-        // ============================================
-        // GLOBAL FUNCTIONS
-        // ============================================
-        window.downloadFile = downloadFile;
-        window.initiateDownload = initiateDownload;
+        window.downloadFileNow = downloadFileNow;
         window.deleteFile = deleteFile;
         window.toggleFileSelection = toggleFileSelection;
         window.removeSelectedFile = removeSelectedFile;
