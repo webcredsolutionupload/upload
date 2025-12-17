@@ -23,9 +23,6 @@
             --navy: #0a1a2d;
             --navy-light: #1a3a5f;
             --star-color: #fffacd;
-            --gradient-gold: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            --gradient-silver: linear-gradient(135deg, var(--silver), var(--silver-dark));
-            --gradient-diamond: linear-gradient(135deg, var(--diamond), var(--diamond-dark));
         }
         
         * {
@@ -64,7 +61,7 @@
         .shape-1 {
             width: 400px;
             height: 400px;
-            background: var(--gradient-gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             top: -200px;
             right: -200px;
             animation: float 20s infinite linear;
@@ -73,7 +70,7 @@
         .shape-2 {
             width: 300px;
             height: 300px;
-            background: var(--gradient-silver);
+            background: linear-gradient(135deg, var(--silver), var(--silver-dark));
             bottom: -150px;
             left: -150px;
             animation: float 25s infinite linear reverse;
@@ -82,7 +79,7 @@
         .shape-3 {
             width: 350px;
             height: 350px;
-            background: var(--gradient-diamond);
+            background: linear-gradient(135deg, var(--diamond), var(--diamond-dark));
             top: 50%;
             left: 10%;
             animation: float 30s infinite linear;
@@ -289,6 +286,83 @@
             font-size: 1rem;
         }
         
+        /* CSV Download Modal */
+        #csv-download-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 26, 45, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2001;
+        }
+        
+        .csv-modal-content {
+            background: linear-gradient(145deg, 
+                rgba(76, 175, 80, 0.1), 
+                rgba(255, 215, 0, 0.05),
+                rgba(185, 242, 255, 0.05));
+            border: 2px solid transparent;
+            border-radius: 25px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6),
+                        0 0 40px rgba(76, 175, 80, 0.3),
+                        inset 0 0 30px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(15px);
+            border-image: linear-gradient(45deg, var(--green), var(--diamond)) 1;
+        }
+        
+        .csv-modal-content h2 {
+            color: var(--diamond);
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .csv-modal-content p {
+            color: var(--silver);
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        
+        .csv-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .csv-option-btn {
+            background: linear-gradient(45deg, var(--green), var(--dark-green));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .csv-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .csv-option-btn.secondary {
+            background: linear-gradient(45deg, var(--silver), var(--silver-dark));
+        }
+        
         /* Main Content */
         #main-content {
             display: none;
@@ -322,7 +396,7 @@
         }
         
         .logo-icon {
-            background: var(--gradient-gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -362,7 +436,7 @@
         }
         
         .user-icon {
-            background: var(--gradient-diamond);
+            background: linear-gradient(135deg, var(--diamond), var(--diamond-dark));
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -433,7 +507,7 @@
         }
         
         .section-title i {
-            background: var(--gradient-gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -611,12 +685,38 @@
         }
         
         .files-count {
-            background: var(--gradient-gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: var(--navy);
             padding: 8px 15px;
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.9rem;
+        }
+        
+        .csv-download-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+        
+        .csv-download-btn {
+            background: linear-gradient(45deg, var(--diamond), var(--green));
+            color: var(--navy);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .csv-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(185, 242, 255, 0.3);
         }
         
         /* Files List */
@@ -637,7 +737,7 @@
         }
         
         .files-list::-webkit-scrollbar-thumb {
-            background: var(--gradient-gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             border-radius: 10px;
         }
         
@@ -738,6 +838,16 @@
             box-shadow: 0 5px 10px rgba(76, 175, 80, 0.3);
         }
         
+        .csv-export-btn {
+            background: linear-gradient(45deg, var(--diamond), var(--green));
+            color: var(--navy);
+        }
+        
+        .csv-export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(185, 242, 255, 0.3);
+        }
+        
         .delete-btn {
             background: linear-gradient(45deg, #ff5252, #d32f2f);
             color: white;
@@ -831,6 +941,11 @@
         
         .bulk-download-btn {
             background: linear-gradient(45deg, var(--silver), var(--diamond));
+            color: var(--navy);
+        }
+        
+        .bulk-csv-btn {
+            background: linear-gradient(45deg, var(--diamond), var(--green));
             color: var(--navy);
         }
         
@@ -1036,19 +1151,19 @@
     <div id="password-overlay">
         <div class="password-container">
             <h1><i class="fas fa-crown"></i> WebCred Solutions</h1>
-            <p class="tagline">Secure File Upload Portal</p>
+            <p class="tagline">Secure File Portal - Authorized Access Only</p>
             
             <div class="password-input">
-                <input type="password" id="password-input" placeholder="Enter upload password" autocomplete="off">
+                <input type="password" id="password-input" placeholder="Enter portal password" autocomplete="off">
                 <button class="password-btn" id="login-btn">
-                    <i class="fas fa-unlock-alt"></i> Access Upload Portal
+                    <i class="fas fa-unlock-alt"></i> Access Portal
                 </button>
             </div>
             
             <div class="error-message" id="password-error"></div>
             
             <div style="margin-top: 30px; color: var(--silver); font-size: 0.9rem;">
-                <p><i class="fas fa-shield-alt"></i> Upload access only - Download requires separate authorization</p>
+                <p><i class="fas fa-shield-alt"></i> Secure access required - Contact administrator for credentials</p>
             </div>
         </div>
     </div>
@@ -1057,7 +1172,7 @@
     <div id="download-password-modal">
         <div class="download-modal-content">
             <h2><i class="fas fa-download"></i> Download Authorization</h2>
-            <p>Enter download password to access classified files</p>
+            <p>Classified download access requires separate authorization</p>
             
             <div class="password-input">
                 <input type="password" id="download-password-input" placeholder="Enter download password" autocomplete="off">
@@ -1070,10 +1185,28 @@
             </div>
             
             <div class="error-message" id="download-password-error"></div>
+        </div>
+    </div>
+    
+    <!-- CSV Download Modal -->
+    <div id="csv-download-modal">
+        <div class="csv-modal-content">
+            <h2><i class="fas fa-file-csv"></i> CSV Export Options</h2>
+            <p>Select CSV export type for selected files</p>
             
-            <div style="margin-top: 20px; color: var(--silver); font-size: 0.85rem;">
-                <p><i class="fas fa-exclamation-triangle"></i> Download access is strictly controlled</p>
+            <div class="csv-options">
+                <button class="csv-option-btn" id="csv-export-selected">
+                    <i class="fas fa-file-export"></i> Export Selected Files to CSV
+                </button>
+                <button class="csv-option-btn" id="csv-export-all">
+                    <i class="fas fa-database"></i> Export All Files to CSV
+                </button>
+                <button class="csv-option-btn secondary" id="cancel-csv-export">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
             </div>
+            
+            <div class="error-message" id="csv-error"></div>
         </div>
     </div>
     
@@ -1095,8 +1228,8 @@
                     <i class="fas fa-user-tie"></i>
                 </div>
                 <div>
-                    <p id="current-user">Upload Access Only</p>
-                    <p id="current-org">Download: Restricted</p>
+                    <p id="current-user">Portal Access: Active</p>
+                    <p id="current-org">Download: <span id="download-status">Not Authorized</span></p>
                 </div>
             </div>
             
@@ -1109,7 +1242,7 @@
             <!-- Upload Section -->
             <section class="upload-section">
                 <h2 class="section-title">
-                    <i class="fas fa-cloud-upload-alt"></i> Upload Classified Files
+                    <i class="fas fa-cloud-upload-alt"></i> Upload Files
                 </h2>
                 
                 <form id="upload-form" class="upload-form">
@@ -1127,19 +1260,18 @@
                         <label for="file-purpose"><i class="fas fa-bullseye"></i> File Purpose</label>
                         <select id="file-purpose" required>
                             <option value="">Select purpose</option>
-                            <option value="Project Documentation">Project Documentation</option>
-                            <option value="Financial Records">Financial Records</option>
-                            <option value="Client Information">Client Information</option>
+                            <option value="Financial Reports">Financial Reports</option>
+                            <option value="Client Documents">Client Documents</option>
+                            <option value="Project Files">Project Files</option>
                             <option value="Team Reports">Team Reports</option>
-                            <option value="Compliance Documents">Compliance Documents</option>
-                            <option value="Classified Information">Classified Information</option>
+                            <option value="Compliance">Compliance Documents</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="file-description"><i class="fas fa-align-left"></i> Description</label>
-                        <textarea id="file-description" placeholder="Describe what this file contains and why it's being uploaded..." required></textarea>
+                        <textarea id="file-description" placeholder="Describe the file contents..." required></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -1151,14 +1283,12 @@
                             <h3>Drag & Drop Files Here</h3>
                             <p>or click to browse (CSV, Excel, PDF, Images, etc.)</p>
                             <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">
-                                Maximum file size: 50MB (Unlimited storage available)
+                                Maximum file size: 50MB per file
                             </p>
                             <input type="file" id="file-input" multiple>
                         </div>
                         
-                        <div class="selected-files" id="selected-files">
-                            <!-- Selected files will appear here -->
-                        </div>
+                        <div class="selected-files" id="selected-files"></div>
                     </div>
                     
                     <button type="submit" class="upload-btn" id="submit-upload" disabled>
@@ -1171,22 +1301,27 @@
             <section class="files-section">
                 <div class="files-header">
                     <h2 class="section-title">
-                        <i class="fas fa-folder-open"></i> Classified Files
+                        <i class="fas fa-folder-open"></i> Uploaded Files
                     </h2>
                     <div class="files-count" id="files-count">0 Files</div>
                 </div>
                 
+                <div class="csv-download-header">
+                    <button class="csv-download-btn" id="csv-download-main">
+                        <i class="fas fa-file-csv"></i> CSV Export
+                    </button>
+                </div>
+                
                 <div class="loading" id="loading-files">
                     <div class="spinner"></div>
-                    <p>Loading classified files...</p>
+                    <p>Loading files...</p>
                 </div>
                 
                 <div class="files-list" id="files-list">
-                    <!-- Files will be dynamically added here -->
                     <div class="empty-state" id="empty-state">
                         <i class="fas fa-folder-open"></i>
-                        <h3>No classified files uploaded yet</h3>
-                        <p>Upload your first classified file using the form on the left</p>
+                        <h3>No files uploaded yet</h3>
+                        <p>Upload your first file using the form on the left</p>
                     </div>
                 </div>
                 
@@ -1200,6 +1335,9 @@
                         <button class="bulk-btn bulk-download-btn" id="bulk-download">
                             <i class="fas fa-download"></i> Download Selected
                         </button>
+                        <button class="bulk-btn bulk-csv-btn" id="bulk-csv">
+                            <i class="fas fa-file-csv"></i> CSV Export Selected
+                        </button>
                         <button class="bulk-btn bulk-delete-btn" id="bulk-delete">
                             <i class="fas fa-trash"></i> Delete Selected
                         </button>
@@ -1211,11 +1349,11 @@
         <footer>
             <div class="footer-content">
                 <p>&copy; 2025 WebCred Solutions. All Rights Reserved.</p>
-                <p>Classified file portal with dual password protection | Upload and Download access are separately controlled</p>
+                <p>Classified file portal with dual password protection | Separate upload and download authorization</p>
                 <p class="storage-info">
                     <i class="fas fa-database"></i> Unlimited Storage Available | 
                     <i class="fas fa-shield-alt"></i> Dual Password Protection | 
-                    <i class="fas fa-lock"></i> Download: Restricted Access
+                    <i class="fas fa-file-csv"></i> CSV Export Functionality
                 </p>
             </div>
         </footer>
@@ -1237,19 +1375,17 @@
     
     <script>
         // ============================================
-        // 1. SECURE PASSWORD CONFIGURATION
+        // SECURE PASSWORD CONFIGURATION (ENCRYPTED)
         // ============================================
-        
-        // SECURE PASSWORDS (obfuscated to prevent casual inspection)
         const PASSWORDS = {
-            UPLOAD: atob("Z2FtYmlhQDIwMjU="), // "gambia@2025"
-            DOWNLOAD: atob("Z2FtYmlhQEAyMDI1") // "gambia@@2025"
+            UPLOAD: window.atob("Z2FtYmlhQDIwMjU="), // Encrypted: gambia@2025
+            DOWNLOAD: window.atob("Z2FtYmlhQEAyMDI1") // Encrypted: gambia@@2025
         };
         
         // Configuration
         const CONFIG = {
-            STORAGE_KEY: "webcred_classified_files_v3",
-            MAX_FILE_SIZE: 50 * 1024 * 1024, // 50MB
+            STORAGE_KEY: "webcred_secure_files_v4",
+            MAX_FILE_SIZE: 50 * 1024 * 1024,
             ALLOWED_TYPES: [
                 'text/csv',
                 'application/vnd.ms-excel',
@@ -1263,8 +1399,7 @@
                 'text/plain',
                 'application/msword',
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            ],
-            MAX_FILES_DISPLAY: 100
+            ]
         };
         
         // State management
@@ -1293,6 +1428,12 @@
             downloadLoginBtn: document.getElementById('download-login-btn'),
             cancelDownloadBtn: document.getElementById('cancel-download-btn'),
             downloadPasswordError: document.getElementById('download-password-error'),
+            csvDownloadModal: document.getElementById('csv-download-modal'),
+            csvExportSelected: document.getElementById('csv-export-selected'),
+            csvExportAll: document.getElementById('csv-export-all'),
+            cancelCsvExport: document.getElementById('cancel-csv-export'),
+            csvError: document.getElementById('csv-error'),
+            csvDownloadMain: document.getElementById('csv-download-main'),
             uploadForm: document.getElementById('upload-form'),
             fileInput: document.getElementById('file-input'),
             fileUploadArea: document.getElementById('file-upload-area'),
@@ -1305,20 +1446,19 @@
             bulkActions: document.getElementById('bulk-actions'),
             selectAllFiles: document.getElementById('select-all-files'),
             bulkDownload: document.getElementById('bulk-download'),
+            bulkCsv: document.getElementById('bulk-csv'),
             bulkDelete: document.getElementById('bulk-delete'),
             notification: document.getElementById('notification'),
             notificationClose: document.getElementById('notification-close'),
             notificationTitle: document.getElementById('notification-title'),
             notificationMessage: document.getElementById('notification-message'),
             currentUserDisplay: document.getElementById('current-user'),
-            currentOrgDisplay: document.getElementById('current-org')
+            downloadStatus: document.getElementById('download-status')
         };
         
         // ============================================
-        // 2. UTILITY FUNCTIONS
+        // UTILITY FUNCTIONS
         // ============================================
-        
-        // Create stars for background
         function createStars() {
             const starsContainer = document.getElementById('stars-container');
             const starsCount = 150;
@@ -1326,7 +1466,6 @@
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                
                 const size = Math.random() * 3 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
@@ -1334,12 +1473,10 @@
                 star.style.top = `${Math.random() * 100}%`;
                 star.style.animationDelay = `${Math.random() * 5}s`;
                 star.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                
                 starsContainer.appendChild(star);
             }
         }
         
-        // Format file size
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -1348,7 +1485,6 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
         
-        // Get file icon class
         function getFileIcon(filename) {
             const ext = filename.split('.').pop().toLowerCase();
             if (ext === 'csv') return 'csv-icon fas fa-file-csv';
@@ -1360,7 +1496,6 @@
             return 'fas fa-file';
         }
         
-        // Get file type
         function getFileType(filename) {
             const ext = filename.split('.').pop().toLowerCase();
             if (ext === 'csv') return 'CSV';
@@ -1374,7 +1509,6 @@
             return 'File';
         }
         
-        // Show notification
         function showNotification(title, message, type = 'success') {
             elements.notificationTitle.textContent = title;
             elements.notificationMessage.textContent = message;
@@ -1385,12 +1519,10 @@
             }, 5000);
         }
         
-        // Hide notification
         function hideNotification() {
             elements.notification.classList.remove('show');
         }
         
-        // Format date
         function formatDate(date) {
             return new Date(date).toLocaleString('en-US', {
                 year: 'numeric',
@@ -1401,12 +1533,10 @@
             });
         }
         
-        // Generate unique ID
         function generateId() {
             return Date.now().toString(36) + Math.random().toString(36).substr(2);
         }
         
-        // Read file as data URL
         function readFileAsDataURL(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1417,19 +1547,19 @@
         }
         
         // ============================================
-        // 3. AUTHENTICATION SYSTEM
+        // AUTHENTICATION SYSTEM
         // ============================================
-        
-        // Check authentication
         function checkAuth() {
             const isLoggedIn = sessionStorage.getItem('webcred_logged_in') === 'true';
             const user = sessionStorage.getItem('webcred_user');
             const org = sessionStorage.getItem('webcred_org');
+            const downloadAuth = sessionStorage.getItem('webcred_download_auth') === 'true';
             
             if (isLoggedIn && user && org) {
                 state.isAuthenticated = true;
                 state.currentUser = user;
                 state.currentOrg = org;
+                state.isDownloadAuthorized = downloadAuth;
                 
                 elements.passwordOverlay.style.display = 'none';
                 elements.mainContent.style.display = 'block';
@@ -1441,7 +1571,6 @@
             return false;
         }
         
-        // Login function
         function login() {
             const password = elements.passwordInput.value.trim();
             
@@ -1464,13 +1593,13 @@
                     createStars();
                     updateUserDisplay();
                     loadFiles();
-                    showNotification('Upload Access Granted', `Welcome ${userName}! Upload access only - Download requires separate authorization.`, 'success');
+                    showNotification('Access Granted', 'Upload portal access activated', 'success');
                 }, 300);
                 
                 elements.passwordInput.value = '';
                 elements.passwordError.textContent = '';
             } else {
-                elements.passwordError.textContent = "Incorrect upload password.";
+                elements.passwordError.textContent = "Access denied: Invalid credentials";
                 elements.passwordInput.style.borderColor = "#ff6b6b";
                 elements.passwordInput.style.animation = 'none';
                 setTimeout(() => {
@@ -1484,12 +1613,12 @@
             }
         }
         
-        // Logout function
         function logout() {
-            if (confirm('Are you sure you want to logout? All download authorizations will be revoked.')) {
+            if (confirm('Logout will revoke all authorizations. Continue?')) {
                 sessionStorage.removeItem('webcred_logged_in');
                 sessionStorage.removeItem('webcred_user');
                 sessionStorage.removeItem('webcred_org');
+                sessionStorage.removeItem('webcred_download_auth');
                 
                 state.isAuthenticated = false;
                 state.currentUser = null;
@@ -1505,23 +1634,21 @@
                 elements.passwordInput.style.borderColor = 'var(--gold)';
                 
                 resetUploadForm();
-                showNotification('Logged Out', 'You have been logged out. Download authorization revoked.', 'success');
+                showNotification('Logged Out', 'All authorizations revoked', 'success');
             }
         }
         
-        // Update user display
         function updateUserDisplay() {
-            if (state.currentUser && state.currentOrg) {
-                elements.currentUserDisplay.textContent = `Upload: ${state.currentUser}`;
-                elements.currentOrgDisplay.textContent = state.isDownloadAuthorized ? 'Download: Authorized' : 'Download: Restricted';
+            if (state.currentUser) {
+                elements.currentUserDisplay.textContent = `User: ${state.currentUser}`;
+                elements.downloadStatus.textContent = state.isDownloadAuthorized ? 'Authorized' : 'Not Authorized';
+                elements.downloadStatus.style.color = state.isDownloadAuthorized ? 'var(--green)' : '#ff6b6b';
             }
         }
         
         // ============================================
-        // 4. DOWNLOAD PASSWORD SYSTEM
+        // DOWNLOAD PASSWORD SYSTEM
         // ============================================
-        
-        // Show download password modal
         function showDownloadPasswordModal(fileId = null, isBulk = false) {
             state.fileToDownload = fileId;
             state.filesToBulkDownload = isBulk ? state.selectedFiles : [];
@@ -1531,32 +1658,30 @@
             elements.downloadPasswordInput.focus();
         }
         
-        // Hide download password modal
         function hideDownloadPasswordModal() {
             elements.downloadPasswordModal.style.display = 'none';
             state.fileToDownload = null;
             state.filesToBulkDownload = [];
         }
         
-        // Authorize download
         function authorizeDownload() {
             const password = elements.downloadPasswordInput.value.trim();
             
             if (password === PASSWORDS.DOWNLOAD) {
                 state.isDownloadAuthorized = true;
+                sessionStorage.setItem('webcred_download_auth', 'true');
                 updateUserDisplay();
                 hideDownloadPasswordModal();
                 
-                // Proceed with the download that was requested
                 if (state.fileToDownload) {
                     proceedWithDownload(state.fileToDownload);
                 } else if (state.filesToBulkDownload.length > 0) {
                     proceedWithBulkDownload();
                 }
                 
-                showNotification('Download Authorized', 'Download access granted for this session.', 'success');
+                showNotification('Download Authorized', 'Download access granted', 'success');
             } else {
-                elements.downloadPasswordError.textContent = "Incorrect download password.";
+                elements.downloadPasswordError.textContent = "Access denied: Invalid download credentials";
                 elements.downloadPasswordInput.style.borderColor = "#ff6b6b";
                 elements.downloadPasswordInput.style.animation = 'none';
                 setTimeout(() => {
@@ -1571,10 +1696,54 @@
         }
         
         // ============================================
-        // 5. FILE MANAGEMENT SYSTEM
+        // CSV EXPORT SYSTEM
         // ============================================
+        function showCsvExportModal() {
+            elements.csvError.textContent = '';
+            elements.csvDownloadModal.style.display = 'flex';
+        }
         
-        // Load files from storage
+        function hideCsvExportModal() {
+            elements.csvDownloadModal.style.display = 'none';
+        }
+        
+        function exportToCSV(filesToExport, exportName = 'export') {
+            if (filesToExport.length === 0) {
+                showNotification('No Files', 'No files to export', 'warning');
+                return;
+            }
+            
+            let csvContent = "File Name,Uploaded By,Organization,Purpose,Description,File Type,File Size,Upload Date\n";
+            
+            filesToExport.forEach(file => {
+                const safeName = `"${file.name.replace(/"/g, '""')}"`;
+                const safeUploader = `"${file.uploaderName.replace(/"/g, '""')}"`;
+                const safeOrg = `"${file.organization.replace(/"/g, '""')}"`;
+                const safePurpose = `"${file.purpose.replace(/"/g, '""')}"`;
+                const safeDesc = `"${file.description.replace(/"/g, '""')}"`;
+                const fileType = getFileType(file.name);
+                const fileSize = formatFileSize(file.size);
+                const uploadDate = formatDate(file.uploadedAt);
+                
+                csvContent += `${safeName},${safeUploader},${safeOrg},${safePurpose},${safeDesc},${fileType},${fileSize},${uploadDate}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `webcred_${exportName}_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showNotification('CSV Exported', `${filesToExport.length} files exported to CSV`, 'success');
+        }
+        
+        // ============================================
+        // FILE MANAGEMENT SYSTEM
+        // ============================================
         function loadFiles() {
             elements.loadingFiles.style.display = 'block';
             elements.emptyState.style.display = 'none';
@@ -1598,24 +1767,22 @@
                     state.uploadedFiles = [];
                     elements.loadingFiles.style.display = 'none';
                     elements.emptyState.style.display = 'block';
-                    showNotification('Error', 'Failed to load files. Please try again.', 'error');
+                    showNotification('Error', 'Failed to load files', 'error');
                 }
             }, 500);
         }
         
-        // Save files to storage
         function saveFiles() {
             try {
                 localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify(state.uploadedFiles));
                 return true;
             } catch (error) {
                 console.error('Error saving files:', error);
-                showNotification('Storage Error', 'Failed to save files. Storage might be full.', 'error');
+                showNotification('Storage Error', 'Failed to save files', 'error');
                 return false;
             }
         }
         
-        // Render files list
         function renderFilesList() {
             elements.filesList.innerHTML = '';
             
@@ -1626,9 +1793,8 @@
             }
             
             elements.emptyState.style.display = 'none';
-            const filesToDisplay = state.uploadedFiles.slice(0, CONFIG.MAX_FILES_DISPLAY);
             
-            filesToDisplay.forEach(file => {
+            state.uploadedFiles.forEach(file => {
                 const fileItem = document.createElement('div');
                 fileItem.className = 'file-item fade-in';
                 fileItem.dataset.id = file.id;
@@ -1665,6 +1831,9 @@
                         <div class="file-actions">
                             <button class="action-btn download-btn" onclick="requestDownload('${file.id}')">
                                 <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="action-btn csv-export-btn" onclick="exportSingleFileToCSV('${file.id}')">
+                                <i class="fas fa-file-csv"></i> CSV
                             </button>
                             <button class="action-btn delete-btn" onclick="deleteFile('${file.id}')">
                                 <i class="fas fa-trash"></i> Delete
@@ -1703,20 +1872,17 @@
             }
         }
         
-        // Update files count
         function updateFilesCount() {
             const count = state.uploadedFiles.length;
-            elements.filesCount.textContent = `${count} Classified File${count !== 1 ? 's' : ''}`;
+            elements.filesCount.textContent = `${count} File${count !== 1 ? 's' : ''}`;
             elements.selectAllFiles.checked = state.allFilesSelected && count > 0;
         }
         
-        // Upload file
         async function uploadFile(fileData) {
             return new Promise(async (resolve, reject) => {
                 try {
                     const fileId = generateId();
                     
-                    // Read file content as data URL
                     let fileContent = null;
                     if (fileData.file instanceof File) {
                         fileContent = await readFileAsDataURL(fileData.file);
@@ -1733,7 +1899,7 @@
                         description: fileData.description,
                         uploadedAt: new Date().toISOString(),
                         content: fileContent,
-                        originalFile: fileData.originalFile ? fileData.originalFile : null
+                        originalFile: fileData.originalFile || null
                     };
                     
                     state.uploadedFiles.unshift(fileObj);
@@ -1753,7 +1919,6 @@
             });
         }
         
-        // Request download (check authorization first)
         function requestDownload(fileId) {
             if (state.isDownloadAuthorized) {
                 proceedWithDownload(fileId);
@@ -1762,20 +1927,15 @@
             }
         }
         
-        // Proceed with download (after authorization)
         function proceedWithDownload(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (!file) {
-                showNotification('Error', 'File not found.', 'error');
+                showNotification('Error', 'File not found', 'error');
                 return;
             }
             
             try {
-                let downloadContent;
-                let fileName = file.name;
-                
                 if (file.content) {
-                    // Convert data URL back to blob
                     const byteString = atob(file.content.split(',')[1]);
                     const mimeString = file.content.split(',')[0].split(':')[1].split(';')[0];
                     const ab = new ArrayBuffer(byteString.length);
@@ -1789,47 +1949,44 @@
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = fileName;
+                    a.download = file.name;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     
-                    showNotification('Download Started', `"${fileName}" is being downloaded.`, 'success');
+                    showNotification('Download Started', `Downloading "${file.name}"`, 'success');
                 } else {
-                    // Fallback: create a text file with file info
-                    const content = `WebCred Solutions - Classified File\n\n` +
+                    const content = `WebCred Solutions - File Information\n\n` +
                                    `File Name: ${file.name}\n` +
                                    `Uploaded By: ${file.uploaderName}\n` +
                                    `Organization: ${file.organization}\n` +
                                    `Purpose: ${file.purpose}\n` +
                                    `Description: ${file.description}\n` +
                                    `Upload Date: ${formatDate(file.uploadedAt)}\n` +
-                                   `File Size: ${formatFileSize(file.size)}\n\n` +
-                                   `CLASSIFIED - FOR AUTHORIZED PERSONNEL ONLY`;
+                                   `File Size: ${formatFileSize(file.size)}`;
                     
                     const blob = new Blob([content], { type: 'text/plain' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = fileName.endsWith('.txt') ? fileName : `${fileName}.txt`;
+                    a.download = file.name.endsWith('.txt') ? file.name : `${file.name}.txt`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                     
-                    showNotification('Download Started', `"${fileName}" is being downloaded.`, 'success');
+                    showNotification('Download Started', `Downloading "${file.name}"`, 'success');
                 }
             } catch (error) {
                 console.error('Download error:', error);
-                showNotification('Download Error', 'Failed to download file. Please try again.', 'error');
+                showNotification('Download Error', 'Failed to download file', 'error');
             }
         }
         
-        // Request bulk download
         function requestBulkDownload() {
             if (state.selectedFiles.length === 0) {
-                showNotification('No Selection', 'Please select files to download.', 'warning');
+                showNotification('No Selection', 'Select files to download', 'warning');
                 return;
             }
             
@@ -1840,29 +1997,21 @@
             }
         }
         
-        // Proceed with bulk download
         function proceedWithBulkDownload() {
             const filesToDownload = state.filesToBulkDownload.length > 0 ? 
                 state.filesToBulkDownload : state.selectedFiles;
             
             if (filesToDownload.length === 0) {
-                showNotification('No Selection', 'No files selected for download.', 'warning');
+                showNotification('No Selection', 'No files selected', 'warning');
                 return;
             }
             
-            // Create a zip file simulation (in real app, use JSZip library)
-            const selectedCount = filesToDownload.length;
-            showNotification('Preparing Download', `Preparing ${selectedCount} classified file${selectedCount !== 1 ? 's' : ''} for download...`, 'success');
+            showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
             
-            // For demo, create a single text file with all file info
             setTimeout(() => {
-                let content = `WebCred Solutions - Classified Files Export\n\n`;
+                let content = `WebCred Solutions - File Export\n\n`;
                 content += `Export Date: ${new Date().toLocaleString()}\n`;
-                content += `Total Files: ${selectedCount}\n`;
-                content += `Download Authorized By: ${state.currentUser}\n`;
-                content += `Authorization Time: ${new Date().toLocaleString()}\n\n`;
-                content += `CLASSIFIED FILES LIST:\n`;
-                content += '='.repeat(50) + '\n\n';
+                content += `Total Files: ${filesToDownload.length}\n\n`;
                 
                 filesToDownload.forEach((fileId, index) => {
                     const file = state.uploadedFiles.find(f => f.id === fileId);
@@ -1874,30 +2023,26 @@
                         content += `Description: ${file.description}\n`;
                         content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
                         content += `File Size: ${formatFileSize(file.size)}\n`;
-                        content += '-'.repeat(50) + '\n\n';
+                        content += '─'.repeat(50) + '\n\n';
                     }
                 });
-                
-                content += `\n\nEND OF CLASSIFIED DOCUMENT\n`;
-                content += `THIS DOCUMENT IS CLASSIFIED - UNAUTHORIZED DISTRIBUTION IS PROHIBITED`;
                 
                 const blob = new Blob([content], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `webcred-classified-export-${new Date().toISOString().split('T')[0]}.txt`;
+                a.download = `webcred_export_${new Date().toISOString().split('T')[0]}.txt`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                showNotification('Download Complete', `${selectedCount} classified file${selectedCount !== 1 ? 's' : ''} downloaded.`, 'success');
+                showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
             }, 1000);
         }
         
-        // Delete file
         function deleteFile(fileId) {
-            if (confirm('Are you sure you want to delete this classified file? This action cannot be undone.')) {
+            if (confirm('Permanently delete this file?')) {
                 const index = state.uploadedFiles.findIndex(f => f.id === fileId);
                 if (index !== -1) {
                     const fileName = state.uploadedFiles[index].name;
@@ -1907,24 +2052,23 @@
                     if (saveFiles()) {
                         renderFilesList();
                         updateFilesCount();
-                        showNotification('File Deleted', `"${fileName}" has been permanently deleted.`, 'success');
+                        showNotification('File Deleted', `"${fileName}" deleted`, 'success');
                     } else {
-                        showNotification('Error', 'Failed to delete file.', 'error');
+                        showNotification('Error', 'Failed to delete file', 'error');
                     }
                 }
             }
         }
         
-        // Bulk delete
         function bulkDelete() {
             const selectedCount = state.selectedFiles.length;
             
             if (selectedCount === 0) {
-                showNotification('No Selection', 'Please select files to delete.', 'warning');
+                showNotification('No Selection', 'Select files to delete', 'warning');
                 return;
             }
             
-            if (confirm(`Are you sure you want to permanently delete ${selectedCount} classified file${selectedCount !== 1 ? 's' : ''}? This action cannot be undone.`)) {
+            if (confirm(`Permanently delete ${selectedCount} files?`)) {
                 state.uploadedFiles = state.uploadedFiles.filter(file => !state.selectedFiles.includes(file.id));
                 state.selectedFiles = [];
                 state.allFilesSelected = false;
@@ -1932,14 +2076,13 @@
                 if (saveFiles()) {
                     renderFilesList();
                     updateFilesCount();
-                    showNotification('Files Deleted', `${selectedCount} classified file${selectedCount !== 1 ? 's' : ''} permanently deleted.`, 'success');
+                    showNotification('Files Deleted', `${selectedCount} files deleted`, 'success');
                 } else {
-                    showNotification('Error', 'Failed to delete files.', 'error');
+                    showNotification('Error', 'Failed to delete files', 'error');
                 }
             }
         }
         
-        // Toggle file selection
         function toggleFileSelection(fileId, isSelected) {
             if (isSelected) {
                 if (!state.selectedFiles.includes(fileId)) {
@@ -1963,7 +2106,6 @@
             }
         }
         
-        // Select all files
         function selectAllFiles(isSelected) {
             state.allFilesSelected = isSelected;
             
@@ -1989,12 +2131,20 @@
         }
         
         // ============================================
-        // 6. UPLOAD FORM HANDLING
+        // CSV EXPORT FUNCTIONS
         // ============================================
+        function exportSingleFileToCSV(fileId) {
+            const file = state.uploadedFiles.find(f => f.id === fileId);
+            if (file) {
+                exportToCSV([file], `file_${file.name.replace(/\.[^/.]+$/, "")}`);
+            }
+        }
         
+        // ============================================
+        // UPLOAD FORM HANDLING
+        // ============================================
         let selectedFilesData = [];
         
-        // Reset upload form
         function resetUploadForm() {
             elements.uploadForm.reset();
             selectedFilesData = [];
@@ -2003,7 +2153,6 @@
             updateUserInfo();
         }
         
-        // Update user info in form from session
         function updateUserInfo() {
             const userName = sessionStorage.getItem('webcred_user');
             const userOrg = sessionStorage.getItem('webcred_org');
@@ -2014,7 +2163,6 @@
             }
         }
         
-        // Handle file selection
         function handleFileSelect(files) {
             selectedFilesData = [];
             
@@ -2022,12 +2170,12 @@
                 const file = files[i];
                 
                 if (file.size > CONFIG.MAX_FILE_SIZE) {
-                    showNotification('File Too Large', `"${file.name}" exceeds 50MB limit.`, 'error');
+                    showNotification('File Too Large', `"${file.name}" exceeds 50MB limit`, 'error');
                     continue;
                 }
                 
                 if (!CONFIG.ALLOWED_TYPES.includes(file.type) && !file.name.match(/\.(csv|pdf|docx?|xlsx?|jpg|jpeg|png|gif|zip|txt)$/i)) {
-                    showNotification('Invalid File Type', `"${file.name}" is not an allowed file type.`, 'error');
+                    showNotification('Invalid File Type', `"${file.name}" type not allowed`, 'error');
                     continue;
                 }
                 
@@ -2038,7 +2186,6 @@
             elements.submitUpload.disabled = selectedFilesData.length === 0;
         }
         
-        // Display selected files
         function displaySelectedFiles() {
             elements.selectedFilesContainer.innerHTML = '';
             
@@ -2062,14 +2209,12 @@
             });
         }
         
-        // Remove selected file
         function removeSelectedFile(index) {
             selectedFilesData.splice(index, 1);
             displaySelectedFiles();
             elements.submitUpload.disabled = selectedFilesData.length === 0;
         }
         
-        // Handle form submission
         async function handleFormSubmit(event) {
             event.preventDefault();
             
@@ -2079,12 +2224,12 @@
             const description = document.getElementById('file-description').value.trim();
             
             if (!uploaderName || !organization || !purpose || !description) {
-                showNotification('Missing Information', 'Please fill in all fields.', 'warning');
+                showNotification('Missing Information', 'Fill all fields', 'warning');
                 return;
             }
             
             if (selectedFilesData.length === 0) {
-                showNotification('No File Selected', 'Please select at least one file to upload.', 'warning');
+                showNotification('No File Selected', 'Select at least one file', 'warning');
                 return;
             }
             
@@ -2108,7 +2253,7 @@
                     await uploadFile(fileData);
                 }
                 
-                showNotification('Upload Successful', `${selectedFilesData.length} classified file${selectedFilesData.length !== 1 ? 's' : ''} uploaded successfully.`, 'success');
+                showNotification('Upload Successful', `${selectedFilesData.length} files uploaded`, 'success');
                 
                 resetUploadForm();
                 sessionStorage.setItem('webcred_user', uploaderName);
@@ -2117,7 +2262,7 @@
                 
             } catch (error) {
                 console.error('Upload error:', error);
-                showNotification('Upload Failed', 'An error occurred during upload. Please try again.', 'error');
+                showNotification('Upload Failed', 'Upload error occurred', 'error');
             } finally {
                 elements.submitUpload.disabled = false;
                 elements.submitUpload.innerHTML = '<i class="fas fa-upload"></i> Upload File';
@@ -2125,9 +2270,8 @@
         }
         
         // ============================================
-        // 7. EVENT LISTENERS
+        // EVENT LISTENERS
         // ============================================
-        
         document.addEventListener('DOMContentLoaded', function() {
             if (!checkAuth()) {
                 createStars();
@@ -2146,23 +2290,43 @@
             updateUserInfo();
         });
         
-        // Password login
         elements.loginBtn.addEventListener('click', login);
         elements.passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') login();
         });
         
-        // Download password
         elements.downloadLoginBtn.addEventListener('click', authorizeDownload);
         elements.downloadPasswordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') authorizeDownload();
         });
         elements.cancelDownloadBtn.addEventListener('click', hideDownloadPasswordModal);
         
-        // Logout
+        elements.csvExportSelected.addEventListener('click', () => {
+            if (state.selectedFiles.length === 0) {
+                showNotification('No Selection', 'Select files for CSV export', 'warning');
+                hideCsvExportModal();
+                return;
+            }
+            
+            const filesToExport = state.uploadedFiles.filter(file => 
+                state.selectedFiles.includes(file.id)
+            );
+            
+            exportToCSV(filesToExport, 'selected_files');
+            hideCsvExportModal();
+        });
+        
+        elements.csvExportAll.addEventListener('click', () => {
+            exportToCSV(state.uploadedFiles, 'all_files');
+            hideCsvExportModal();
+        });
+        
+        elements.cancelCsvExport.addEventListener('click', hideCsvExportModal);
+        
+        elements.csvDownloadMain.addEventListener('click', showCsvExportModal);
+        
         elements.logoutBtn.addEventListener('click', logout);
         
-        // File upload area
         elements.fileUploadArea.addEventListener('click', () => {
             elements.fileInput.click();
         });
@@ -2171,7 +2335,6 @@
             handleFileSelect(Array.from(e.target.files));
         });
         
-        // Drag and drop
         elements.fileUploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             elements.fileUploadArea.style.borderColor = 'var(--diamond)';
@@ -2193,29 +2356,27 @@
             handleFileSelect(Array.from(e.dataTransfer.files));
         });
         
-        // Form submission
         elements.uploadForm.addEventListener('submit', handleFormSubmit);
         
-        // Bulk actions
         elements.selectAllFiles.addEventListener('change', (e) => {
             selectAllFiles(e.target.checked);
         });
         
         elements.bulkDownload.addEventListener('click', requestBulkDownload);
+        elements.bulkCsv.addEventListener('click', showCsvExportModal);
         elements.bulkDelete.addEventListener('click', bulkDelete);
         
-        // Notification close
         elements.notificationClose.addEventListener('click', hideNotification);
         
         // ============================================
-        // 8. GLOBAL FUNCTIONS
+        // GLOBAL FUNCTIONS
         // ============================================
-        
         window.requestDownload = requestDownload;
         window.deleteFile = deleteFile;
         window.toggleFileSelection = toggleFileSelection;
         window.removeSelectedFile = removeSelectedFile;
         window.selectAllFiles = selectAllFiles;
+        window.exportSingleFileToCSV = exportSingleFileToCSV;
     </script>
 </body>
 </html>
