@@ -23,6 +23,8 @@
             --navy: #0a1a2d;
             --navy-light: #1a3a5f;
             --star-color: #fffacd;
+            --classified-red: #d32f2f;
+            --classified-bg: rgba(211, 47, 47, 0.1);
         }
         
         * {
@@ -543,6 +545,28 @@
             box-shadow: none;
         }
         
+        /* Classified Checkbox */
+        .classified-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--classified-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--classified-red);
+        }
+        
+        .classified-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .classified-checkbox label {
+            color: var(--classified-red);
+            font-weight: 600;
+        }
+        
         /* Files Section */
         .files-section {
             background: rgba(255, 255, 255, 0.95);
@@ -596,6 +620,35 @@
             box-shadow: 0 8px 15px rgba(185, 242, 255, 0.3);
         }
         
+        /* File Filters */
+        .file-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: rgba(232, 245, 233, 0.8);
+            border: 2px solid var(--silver);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
+            border-color: var(--gold);
+            color: var(--navy);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+        
         /* Files List */
         .files-list {
             max-height: 500px;
@@ -628,6 +681,23 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+        }
+        
+        .file-item.classified {
+            background: var(--classified-bg);
+            border-left: 5px solid var(--classified-red);
+        }
+        
+        .file-item.classified .classified-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--classified-red);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
         
         .file-item:hover {
@@ -741,6 +811,10 @@
             background: rgba(232, 245, 233, 0.5);
             border-radius: 10px;
             border-left: 4px solid var(--diamond);
+        }
+        
+        .file-item.classified .file-description {
+            background: rgba(211, 47, 47, 0.05);
         }
         
         .description-title {
@@ -975,6 +1049,72 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Download Dialog */
+        .download-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .download-dialog-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .download-dialog h3 {
+            color: var(--navy);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .download-dialog p {
+            margin-bottom: 25px;
+            color: #666;
+        }
+        
+        .download-dialog-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .dialog-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
+        
+        .dialog-confirm {
+            background: linear-gradient(45deg, var(--green), var(--dark-green));
+            color: white;
+        }
+        
+        .dialog-cancel {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .dialog-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .password-container {
@@ -1010,6 +1150,10 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .download-dialog-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -1041,6 +1185,18 @@
             
             <div style="margin-top: 30px; color: var(--silver); font-size: 0.9rem;">
                 <p><i class="fas fa-shield-alt"></i> Secure access required</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Download Dialog -->
+    <div class="download-dialog" id="download-dialog">
+        <div class="download-dialog-content">
+            <h3>Download File</h3>
+            <p id="dialog-file-name">File Name</p>
+            <div class="download-dialog-buttons">
+                <button class="dialog-btn dialog-cancel" id="dialog-cancel">Cancel</button>
+                <button class="dialog-btn dialog-confirm" id="dialog-confirm">Download</button>
             </div>
         </div>
     </div>
@@ -1109,6 +1265,11 @@
                         <textarea id="file-description" placeholder="Describe the file contents..." required></textarea>
                     </div>
                     
+                    <div class="classified-checkbox">
+                        <input type="checkbox" id="file-classified">
+                        <label for="file-classified"><i class="fas fa-lock"></i> Mark as Classified/Sensitive</label>
+                    </div>
+                    
                     <div class="form-group">
                         <label><i class="fas fa-file-upload"></i> Select File</label>
                         <div class="file-upload-area" id="file-upload-area">
@@ -1139,6 +1300,12 @@
                         <i class="fas fa-folder-open"></i> Uploaded Files
                     </h2>
                     <div class="files-count" id="files-count">0 Files</div>
+                </div>
+                
+                <div class="file-filters">
+                    <button class="filter-btn active" data-filter="all">All Files</button>
+                    <button class="filter-btn" data-filter="classified">Classified Only</button>
+                    <button class="filter-btn" data-filter="csv">CSV Files</button>
                 </div>
                 
                 <div class="csv-download-container">
@@ -1188,7 +1355,8 @@
                 <p class="storage-info">
                     <i class="fas fa-database"></i> Unlimited Storage Available | 
                     <i class="fas fa-shield-alt"></i> Password Protection | 
-                    <i class="fas fa-file-csv"></i> CSV Export Functionality
+                    <i class="fas fa-file-csv"></i> CSV Export Functionality |
+                    <i class="fas fa-lock"></i> Classified Files Support
                 </p>
             </div>
         </footer>
@@ -1243,7 +1411,9 @@
             isAuthenticated: false,
             selectedFiles: [],
             uploadedFiles: [],
-            allFilesSelected: false
+            allFilesSelected: false,
+            currentFilter: 'all',
+            pendingDownload: null
         };
         
         // DOM Elements
@@ -1274,7 +1444,12 @@
             notificationTitle: document.getElementById('notification-title'),
             notificationMessage: document.getElementById('notification-message'),
             currentUserDisplay: document.getElementById('current-user'),
-            userNameDisplay: document.getElementById('user-name')
+            userNameDisplay: document.getElementById('user-name'),
+            downloadDialog: document.getElementById('download-dialog'),
+            dialogFileName: document.getElementById('dialog-file-name'),
+            dialogCancel: document.getElementById('dialog-cancel'),
+            dialogConfirm: document.getElementById('dialog-confirm'),
+            fileClassified: document.getElementById('file-classified')
         };
         
         // ============================================
@@ -1367,8 +1542,28 @@
             });
         }
         
+        function readFileAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsText(file);
+            });
+        }
+        
+        function showDownloadDialog(fileName) {
+            elements.dialogFileName.textContent = `Download "${fileName}"?`;
+            elements.downloadDialog.style.display = 'flex';
+            state.pendingDownload = fileName;
+        }
+        
+        function hideDownloadDialog() {
+            elements.downloadDialog.style.display = 'none';
+            state.pendingDownload = null;
+        }
+        
         // ============================================
-        // CSV DOWNLOAD - SIMPLE & GUARANTEED WORKING
+        // CSV DOWNLOAD - FIXED & WORKING
         // ============================================
         function downloadCSV(files, filename = 'webcred_files') {
             if (files.length === 0) {
@@ -1386,6 +1581,7 @@
                 'File Type',
                 'File Size',
                 'Upload Date',
+                'Classified',
                 'Download Link'
             ];
             
@@ -1403,6 +1599,7 @@
                     `"${getFileType(file.name)}"`,
                     `"${formatFileSize(file.size)}"`,
                     `"${formatDate(file.uploadedAt)}"`,
+                    `"${file.classified ? 'YES' : 'NO'}"`,
                     `"webcred://file/${file.id}"`
                 ].join(',');
                 
@@ -1431,7 +1628,11 @@
         function exportSingleFileCSV(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (file) {
-                downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
+                showDownloadDialog(`${file.name.replace(/\.[^/.]+$/, '')}.csv`);
+                elements.dialogConfirm.onclick = () => {
+                    downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
+                    hideDownloadDialog();
+                };
             }
         }
         
@@ -1445,16 +1646,33 @@
                 state.selectedFiles.includes(file.id)
             );
             
-            downloadCSV(filesToExport, 'webcred_selected_files');
+            showDownloadDialog(`selected_files_${new Date().toISOString().split('T')[0]}.csv`);
+            elements.dialogConfirm.onclick = () => {
+                downloadCSV(filesToExport, 'webcred_selected_files');
+                hideDownloadDialog();
+            };
         }
         
         function exportAllFilesCSV() {
-            if (state.uploadedFiles.length === 0) {
+            let filesToExport = state.uploadedFiles;
+            
+            // Apply filter if active
+            if (state.currentFilter === 'classified') {
+                filesToExport = filesToExport.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToExport = filesToExport.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            if (filesToExport.length === 0) {
                 showNotification('No Files', 'No files to export', 'warning');
                 return;
             }
             
-            downloadCSV(state.uploadedFiles, 'webcred_all_files');
+            showDownloadDialog(`all_files_${new Date().toISOString().split('T')[0]}.csv`);
+            elements.dialogConfirm.onclick = () => {
+                downloadCSV(filesToExport, 'webcred_all_files');
+                hideDownloadDialog();
+            };
         }
         
         // ============================================
@@ -1597,7 +1815,16 @@
         function renderFilesList() {
             elements.filesList.innerHTML = '';
             
-            if (state.uploadedFiles.length === 0) {
+            let filesToShow = state.uploadedFiles;
+            
+            // Apply filters
+            if (state.currentFilter === 'classified') {
+                filesToShow = filesToShow.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToShow = filesToShow.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            if (filesToShow.length === 0) {
                 elements.emptyState.style.display = 'block';
                 elements.bulkActions.style.display = 'none';
                 return;
@@ -1605,9 +1832,9 @@
             
             elements.emptyState.style.display = 'none';
             
-            state.uploadedFiles.forEach(file => {
+            filesToShow.forEach(file => {
                 const fileItem = document.createElement('div');
-                fileItem.className = 'file-item fade-in';
+                fileItem.className = `file-item ${file.classified ? 'classified' : ''} fade-in`;
                 fileItem.dataset.id = file.id;
                 
                 const isSelected = state.selectedFiles.includes(file.id);
@@ -1622,6 +1849,7 @@
                 const uploadDate = formatDate(file.uploadedAt);
                 
                 fileItem.innerHTML = `
+                    ${file.classified ? '<div class="classified-badge"><i class="fas fa-lock"></i> CLASSIFIED</div>' : ''}
                     <div class="file-item-header">
                         <div class="file-info">
                             <div class="file-icon ${fileIconClass.split(' ')[0]}">
@@ -1640,7 +1868,7 @@
                             </div>
                         </div>
                         <div class="file-actions">
-                            <button class="action-btn download-btn" onclick="downloadFile('${file.id}')">
+                            <button class="action-btn download-btn" onclick="initiateDownload('${file.id}')">
                                 <i class="fas fa-download"></i> Download
                             </button>
                             <button class="action-btn csv-btn" onclick="exportSingleFileCSV('${file.id}')">
@@ -1666,6 +1894,7 @@
                             <span><i class="fas fa-user-circle"></i> ${file.uploaderName}</span>
                             <span><i class="fas fa-building"></i> ${file.organization}</span>
                             <span><i class="fas fa-calendar"></i> Uploaded: ${uploadDate}</span>
+                            ${file.classified ? '<span style="color: var(--classified-red);"><i class="fas fa-lock"></i> Classified</span>' : ''}
                         </div>
                         <div>
                             <input type="checkbox" class="file-select" data-id="${file.id}" ${isSelected ? 'checked' : ''} 
@@ -1684,7 +1913,15 @@
         }
         
         function updateFilesCount() {
-            const count = state.uploadedFiles.length;
+            let filesToCount = state.uploadedFiles;
+            
+            if (state.currentFilter === 'classified') {
+                filesToCount = filesToCount.filter(file => file.classified);
+            } else if (state.currentFilter === 'csv') {
+                filesToCount = filesToCount.filter(file => file.name.toLowerCase().endsWith('.csv'));
+            }
+            
+            const count = filesToCount.length;
             elements.filesCount.textContent = `${count} File${count !== 1 ? 's' : ''}`;
             elements.selectAllFiles.checked = state.allFilesSelected && count > 0;
         }
@@ -1708,6 +1945,7 @@
                         organization: fileData.organization,
                         purpose: fileData.purpose,
                         description: fileData.description,
+                        classified: fileData.classified || false,
                         uploadedAt: new Date().toISOString(),
                         content: fileContent
                     };
@@ -1727,6 +1965,20 @@
                     reject(error);
                 }
             });
+        }
+        
+        function initiateDownload(fileId) {
+            const file = state.uploadedFiles.find(f => f.id === fileId);
+            if (!file) {
+                showNotification('Error', 'File not found', 'error');
+                return;
+            }
+            
+            showDownloadDialog(file.name);
+            elements.dialogConfirm.onclick = () => {
+                downloadFile(fileId);
+                hideDownloadDialog();
+            };
         }
         
         function downloadFile(fileId) {
@@ -1764,6 +2016,7 @@
                                    `Organization: ${file.organization}\n` +
                                    `Purpose: ${file.purpose}\n` +
                                    `Description: ${file.description}\n` +
+                                   `Classified: ${file.classified ? 'YES' : 'NO'}\n` +
                                    `Upload Date: ${formatDate(file.uploadedAt)}\n` +
                                    `File Size: ${formatFileSize(file.size)}`;
                     
@@ -1786,44 +2039,50 @@
         }
         
         function bulkDownload() {
-            if (state.selectedFiles.length === 0) {
+            let filesToDownload = state.uploadedFiles.filter(file => 
+                state.selectedFiles.includes(file.id)
+            );
+            
+            if (filesToDownload.length === 0) {
                 showNotification('No Selection', 'Please select files to download', 'warning');
                 return;
             }
             
-            showNotification('Preparing Download', `Preparing ${state.selectedFiles.length} files`, 'success');
-            
-            setTimeout(() => {
-                let content = `WebCred Solutions - File Export\n\n`;
-                content += `Export Date: ${new Date().toLocaleString()}\n`;
-                content += `Total Files: ${state.selectedFiles.length}\n\n`;
+            showDownloadDialog(`${filesToDownload.length}_files.zip`);
+            elements.dialogConfirm.onclick = () => {
+                showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
                 
-                state.selectedFiles.forEach((fileId, index) => {
-                    const file = state.uploadedFiles.find(f => f.id === fileId);
-                    if (file) {
+                setTimeout(() => {
+                    let content = `WebCred Solutions - File Export\n\n`;
+                    content += `Export Date: ${new Date().toLocaleString()}\n`;
+                    content += `Total Files: ${filesToDownload.length}\n\n`;
+                    
+                    filesToDownload.forEach((file, index) => {
                         content += `FILE ${index + 1}: ${file.name}\n`;
                         content += `Uploaded By: ${file.uploaderName}\n`;
                         content += `Organization: ${file.organization}\n`;
                         content += `Purpose: ${file.purpose}\n`;
                         content += `Description: ${file.description}\n`;
+                        content += `Classified: ${file.classified ? 'YES' : 'NO'}\n`;
                         content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
                         content += `File Size: ${formatFileSize(file.size)}\n`;
                         content += '─'.repeat(50) + '\n\n';
-                    }
-                });
-                
-                const blob = new Blob([content], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `webcred_export_${new Date().toISOString().split('T')[0]}.txt`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-                
-                showNotification('Download Complete', `${state.selectedFiles.length} files downloaded`, 'success');
-            }, 1000);
+                    });
+                    
+                    const blob = new Blob([content], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `webcred_export_${new Date().toISOString().split('T')[0]}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
+                }, 1000);
+                hideDownloadDialog();
+            };
         }
         
         function deleteFile(fileId) {
@@ -1915,6 +2174,22 @@
             });
         }
         
+        function applyFilter(filter) {
+            state.currentFilter = filter;
+            
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            renderFilesList();
+            updateFilesCount();
+        }
+        
         // ============================================
         // UPLOAD FORM HANDLING
         // ============================================
@@ -1925,6 +2200,7 @@
             selectedFilesData = [];
             elements.selectedFilesContainer.innerHTML = '';
             elements.submitUpload.disabled = true;
+            elements.fileClassified.checked = false;
             updateUserInfo();
         }
         
@@ -1997,6 +2273,7 @@
             const organization = document.getElementById('uploader-org').value.trim();
             const purpose = document.getElementById('file-purpose').value;
             const description = document.getElementById('file-description').value.trim();
+            const classified = elements.fileClassified.checked;
             
             if (!uploaderName || !organization || !purpose || !description) {
                 showNotification('Missing Information', 'Please fill all fields', 'warning');
@@ -2021,6 +2298,7 @@
                         organization,
                         purpose,
                         description,
+                        classified,
                         file: file
                     };
                     
@@ -2062,6 +2340,13 @@
             document.head.appendChild(style);
             
             updateUserInfo();
+            
+            // Initialize filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    applyFilter(btn.dataset.filter);
+                });
+            });
         });
         
         elements.loginBtn.addEventListener('click', login);
@@ -2114,10 +2399,13 @@
         
         elements.notificationClose.addEventListener('click', hideNotification);
         
+        elements.dialogCancel.addEventListener('click', hideDownloadDialog);
+        
         // ============================================
         // GLOBAL FUNCTIONS
         // ============================================
         window.downloadFile = downloadFile;
+        window.initiateDownload = initiateDownload;
         window.deleteFile = deleteFile;
         window.toggleFileSelection = toggleFileSelection;
         window.removeSelectedFile = removeSelectedFile;
