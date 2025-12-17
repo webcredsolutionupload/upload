@@ -241,51 +241,6 @@
             font-size: 0.95rem;
         }
         
-        /* Download Password Modal */
-        #download-password-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 26, 45, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        
-        .download-modal-content {
-            background: linear-gradient(145deg, 
-                rgba(185, 242, 255, 0.1), 
-                rgba(255, 215, 0, 0.05),
-                rgba(192, 192, 192, 0.05));
-            border: 2px solid transparent;
-            border-radius: 25px;
-            padding: 40px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6),
-                        0 0 40px rgba(185, 242, 255, 0.3),
-                        inset 0 0 30px rgba(255, 215, 0, 0.1);
-            backdrop-filter: blur(15px);
-            border-image: linear-gradient(45deg, var(--diamond), var(--gold)) 1;
-        }
-        
-        .download-modal-content h2 {
-            color: var(--diamond);
-            font-family: 'Montserrat', sans-serif;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .download-modal-content p {
-            color: var(--silver);
-            margin-bottom: 25px;
-            font-size: 1rem;
-        }
-        
         /* Main Content */
         #main-content {
             display: none;
@@ -614,6 +569,31 @@
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.9rem;
+        }
+        
+        .csv-download-container {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .csv-download-btn {
+            background: linear-gradient(45deg, var(--diamond), var(--green));
+            color: var(--navy);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        
+        .csv-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(185, 242, 255, 0.3);
         }
         
         /* Files List */
@@ -1048,7 +1028,7 @@
     <div id="password-overlay">
         <div class="password-container">
             <h1><i class="fas fa-crown"></i> WebCred Solutions</h1>
-            <p class="tagline">Secure File Portal - Authorized Access Only</p>
+            <p class="tagline">Secure File Portal - Professional Access Only</p>
             
             <div class="password-input">
                 <input type="password" id="password-input" placeholder="Enter portal password" autocomplete="off">
@@ -1060,28 +1040,8 @@
             <div class="error-message" id="password-error"></div>
             
             <div style="margin-top: 30px; color: var(--silver); font-size: 0.9rem;">
-                <p><i class="fas fa-shield-alt"></i> Secure access required - Contact administrator for credentials</p>
+                <p><i class="fas fa-shield-alt"></i> Secure access required</p>
             </div>
-        </div>
-    </div>
-    
-    <!-- Download Password Modal -->
-    <div id="download-password-modal">
-        <div class="download-modal-content">
-            <h2><i class="fas fa-download"></i> Download Authorization</h2>
-            <p>Classified download access requires separate authorization</p>
-            
-            <div class="password-input">
-                <input type="password" id="download-password-input" placeholder="Enter download password" autocomplete="off">
-                <button class="password-btn" id="download-login-btn">
-                    <i class="fas fa-key"></i> Authorize Download
-                </button>
-                <button class="password-btn" id="cancel-download-btn" style="background: linear-gradient(45deg, var(--silver-dark), #666);">
-                    <i class="fas fa-times"></i> Cancel
-                </button>
-            </div>
-            
-            <div class="error-message" id="download-password-error"></div>
         </div>
     </div>
     
@@ -1094,7 +1054,7 @@
                 </div>
                 <div class="logo-text">
                     <h1>WebCred Solutions</h1>
-                    <p>Classified File Management System</p>
+                    <p>Professional File Management System</p>
                 </div>
             </div>
             
@@ -1104,7 +1064,7 @@
                 </div>
                 <div>
                     <p id="current-user">Portal Access: Active</p>
-                    <p id="current-org">Download: <span id="download-status">Not Authorized</span></p>
+                    <p id="current-org">User: <span id="user-name">Guest</span></p>
                 </div>
             </div>
             
@@ -1181,9 +1141,9 @@
                     <div class="files-count" id="files-count">0 Files</div>
                 </div>
                 
-                <div style="text-align: right; margin-bottom: 20px;">
-                    <button class="action-btn csv-btn" id="export-all-csv">
-                        <i class="fas fa-file-csv"></i> Export All to CSV
+                <div class="csv-download-container">
+                    <button class="csv-download-btn" id="export-all-csv">
+                        <i class="fas fa-file-csv"></i> Export All Files to CSV
                     </button>
                 </div>
                 
@@ -1224,10 +1184,10 @@
         <footer>
             <div class="footer-content">
                 <p>&copy; 2025 WebCred Solutions. All Rights Reserved.</p>
-                <p>Classified file portal with dual password protection | Separate upload and download authorization</p>
+                <p>Professional file portal with secure access | CSV download functionality enabled</p>
                 <p class="storage-info">
                     <i class="fas fa-database"></i> Unlimited Storage Available | 
-                    <i class="fas fa-shield-alt"></i> Dual Password Protection | 
+                    <i class="fas fa-shield-alt"></i> Password Protection | 
                     <i class="fas fa-file-csv"></i> CSV Export Functionality
                 </p>
             </div>
@@ -1250,16 +1210,15 @@
     
     <script>
         // ============================================
-        // SECURE PASSWORD CONFIGURATION (ENCRYPTED)
+        // SIMPLE CONFIGURATION
         // ============================================
         const PASSWORDS = {
-            UPLOAD: window.atob("Z2FtYmlhQDIwMjU="), // gambia@2025
-            DOWNLOAD: window.atob("Z2FtYmlhQEAyMDI1") // gambia@@2025
+            UPLOAD: "gambia@2025",
+            DOWNLOAD: "gambia@@2025"
         };
         
-        // Configuration
         const CONFIG = {
-            STORAGE_KEY: "webcred_secure_files_v5",
+            STORAGE_KEY: "webcred_files",
             MAX_FILE_SIZE: 50 * 1024 * 1024,
             ALLOWED_TYPES: [
                 'text/csv',
@@ -1277,16 +1236,14 @@
             ]
         };
         
-        // State management
+        // State
         let state = {
             currentUser: null,
             currentOrg: null,
             isAuthenticated: false,
-            isDownloadAuthorized: false,
             selectedFiles: [],
             uploadedFiles: [],
-            allFilesSelected: false,
-            fileToDownload: null
+            allFilesSelected: false
         };
         
         // DOM Elements
@@ -1297,11 +1254,6 @@
             loginBtn: document.getElementById('login-btn'),
             passwordError: document.getElementById('password-error'),
             logoutBtn: document.getElementById('logout-btn'),
-            downloadPasswordModal: document.getElementById('download-password-modal'),
-            downloadPasswordInput: document.getElementById('download-password-input'),
-            downloadLoginBtn: document.getElementById('download-login-btn'),
-            cancelDownloadBtn: document.getElementById('cancel-download-btn'),
-            downloadPasswordError: document.getElementById('download-password-error'),
             exportAllCsv: document.getElementById('export-all-csv'),
             uploadForm: document.getElementById('upload-form'),
             fileInput: document.getElementById('file-input'),
@@ -1322,7 +1274,7 @@
             notificationTitle: document.getElementById('notification-title'),
             notificationMessage: document.getElementById('notification-message'),
             currentUserDisplay: document.getElementById('current-user'),
-            downloadStatus: document.getElementById('download-status')
+            userNameDisplay: document.getElementById('user-name')
         };
         
         // ============================================
@@ -1415,15 +1367,30 @@
             });
         }
         
-        // CSV Export Function - SIMPLE AND WORKING
-        function exportToCSV(files, filename = 'webcred-export') {
+        // ============================================
+        // CSV DOWNLOAD - SIMPLE & GUARANTEED WORKING
+        // ============================================
+        function downloadCSV(files, filename = 'webcred_files') {
             if (files.length === 0) {
                 showNotification('No Files', 'No files to export', 'warning');
                 return;
             }
             
             // Create CSV headers
-            let csvContent = "File Name,Uploader Name,Organization,Purpose,Description,File Type,File Size,Upload Date\n";
+            const headers = [
+                'File Name',
+                'Uploader Name',
+                'Organization',
+                'Purpose',
+                'Description',
+                'File Type',
+                'File Size',
+                'Upload Date',
+                'Download Link'
+            ];
+            
+            // Create CSV content
+            let csvContent = headers.join(',') + '\n';
             
             // Add each file as a row
             files.forEach(file => {
@@ -1435,25 +1402,59 @@
                     `"${file.description.replace(/"/g, '""')}"`,
                     `"${getFileType(file.name)}"`,
                     `"${formatFileSize(file.size)}"`,
-                    `"${formatDate(file.uploadedAt)}"`
+                    `"${formatDate(file.uploadedAt)}"`,
+                    `"webcred://file/${file.id}"`
                 ].join(',');
                 
                 csvContent += row + '\n';
             });
             
-            // Create download link
+            // Create and trigger download
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
+            
             link.setAttribute('href', url);
             link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
             link.style.display = 'none';
+            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            
             URL.revokeObjectURL(url);
             
-            showNotification('CSV Exported', `${files.length} files exported to CSV`, 'success');
+            showNotification('CSV Downloaded', `${files.length} files exported to CSV`, 'success');
+        }
+        
+        // CSV Functions
+        function exportSingleFileCSV(fileId) {
+            const file = state.uploadedFiles.find(f => f.id === fileId);
+            if (file) {
+                downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
+            }
+        }
+        
+        function exportSelectedFilesCSV() {
+            if (state.selectedFiles.length === 0) {
+                showNotification('No Selection', 'Please select files for CSV export', 'warning');
+                return;
+            }
+            
+            const filesToExport = state.uploadedFiles.filter(file => 
+                state.selectedFiles.includes(file.id)
+            );
+            
+            downloadCSV(filesToExport, 'webcred_selected_files');
+        }
+        
+        function exportAllFilesCSV() {
+            if (state.uploadedFiles.length === 0) {
+                showNotification('No Files', 'No files to export', 'warning');
+                return;
+            }
+            
+            downloadCSV(state.uploadedFiles, 'webcred_all_files');
         }
         
         // ============================================
@@ -1463,13 +1464,11 @@
             const isLoggedIn = sessionStorage.getItem('webcred_logged_in') === 'true';
             const user = sessionStorage.getItem('webcred_user');
             const org = sessionStorage.getItem('webcred_org');
-            const downloadAuth = sessionStorage.getItem('webcred_download_auth') === 'true';
             
             if (isLoggedIn && user && org) {
                 state.isAuthenticated = true;
                 state.currentUser = user;
                 state.currentOrg = org;
-                state.isDownloadAuthorized = downloadAuth;
                 
                 elements.passwordOverlay.style.display = 'none';
                 elements.mainContent.style.display = 'block';
@@ -1503,13 +1502,13 @@
                     createStars();
                     updateUserDisplay();
                     loadFiles();
-                    showNotification('Access Granted', 'Upload portal access activated', 'success');
+                    showNotification('Access Granted', 'Welcome to WebCred Solutions', 'success');
                 }, 300);
                 
                 elements.passwordInput.value = '';
                 elements.passwordError.textContent = '';
             } else {
-                elements.passwordError.textContent = "Access denied: Invalid credentials";
+                elements.passwordError.textContent = "Invalid password";
                 elements.passwordInput.style.borderColor = "#ff6b6b";
                 elements.passwordInput.style.animation = 'none';
                 setTimeout(() => {
@@ -1524,17 +1523,15 @@
         }
         
         function logout() {
-            if (confirm('Logout will revoke all authorizations. Continue?')) {
+            if (confirm('Are you sure you want to logout?')) {
                 sessionStorage.removeItem('webcred_logged_in');
                 sessionStorage.removeItem('webcred_user');
                 sessionStorage.removeItem('webcred_org');
-                sessionStorage.removeItem('webcred_download_auth');
                 
                 state.isAuthenticated = false;
                 state.currentUser = null;
                 state.currentOrg = null;
                 state.selectedFiles = [];
-                state.isDownloadAuthorized = false;
                 
                 elements.mainContent.style.display = 'none';
                 elements.passwordOverlay.style.display = 'flex';
@@ -1544,62 +1541,14 @@
                 elements.passwordInput.style.borderColor = 'var(--gold)';
                 
                 resetUploadForm();
-                showNotification('Logged Out', 'All authorizations revoked', 'success');
+                showNotification('Logged Out', 'You have been logged out', 'success');
             }
         }
         
         function updateUserDisplay() {
             if (state.currentUser) {
-                elements.currentUserDisplay.textContent = `User: ${state.currentUser}`;
-                elements.downloadStatus.textContent = state.isDownloadAuthorized ? 'Authorized' : 'Not Authorized';
-                elements.downloadStatus.style.color = state.isDownloadAuthorized ? 'var(--green)' : '#ff6b6b';
-            }
-        }
-        
-        // ============================================
-        // DOWNLOAD PASSWORD SYSTEM
-        // ============================================
-        function showDownloadPasswordModal(fileId = null, isBulk = false) {
-            state.fileToDownload = fileId;
-            elements.downloadPasswordInput.value = '';
-            elements.downloadPasswordError.textContent = '';
-            elements.downloadPasswordModal.style.display = 'flex';
-            elements.downloadPasswordInput.focus();
-        }
-        
-        function hideDownloadPasswordModal() {
-            elements.downloadPasswordModal.style.display = 'none';
-            state.fileToDownload = null;
-        }
-        
-        function authorizeDownload() {
-            const password = elements.downloadPasswordInput.value.trim();
-            
-            if (password === PASSWORDS.DOWNLOAD) {
-                state.isDownloadAuthorized = true;
-                sessionStorage.setItem('webcred_download_auth', 'true');
-                updateUserDisplay();
-                hideDownloadPasswordModal();
-                
-                if (state.fileToDownload) {
-                    proceedWithDownload(state.fileToDownload);
-                } else {
-                    proceedWithBulkDownload();
-                }
-                
-                showNotification('Download Authorized', 'Download access granted', 'success');
-            } else {
-                elements.downloadPasswordError.textContent = "Access denied: Invalid download credentials";
-                elements.downloadPasswordInput.style.borderColor = "#ff6b6b";
-                elements.downloadPasswordInput.style.animation = 'none';
-                setTimeout(() => {
-                    elements.downloadPasswordInput.style.animation = 'shake 0.5s';
-                }, 10);
-                
-                setTimeout(() => {
-                    elements.downloadPasswordInput.value = '';
-                    elements.downloadPasswordInput.focus();
-                }, 1500);
+                elements.currentUserDisplay.textContent = `Portal Access: Active`;
+                elements.userNameDisplay.textContent = state.currentUser;
             }
         }
         
@@ -1691,7 +1640,7 @@
                             </div>
                         </div>
                         <div class="file-actions">
-                            <button class="action-btn download-btn" onclick="requestDownload('${file.id}')">
+                            <button class="action-btn download-btn" onclick="downloadFile('${file.id}')">
                                 <i class="fas fa-download"></i> Download
                             </button>
                             <button class="action-btn csv-btn" onclick="exportSingleFileCSV('${file.id}')">
@@ -1780,15 +1729,7 @@
             });
         }
         
-        function requestDownload(fileId) {
-            if (state.isDownloadAuthorized) {
-                proceedWithDownload(fileId);
-            } else {
-                showDownloadPasswordModal(fileId);
-            }
-        }
-        
-        function proceedWithDownload(fileId) {
+        function downloadFile(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (!file) {
                 showNotification('Error', 'File not found', 'error');
@@ -1797,7 +1738,6 @@
             
             try {
                 if (file.content) {
-                    // Extract the base64 data from the data URL
                     const base64Data = file.content.split(',')[1];
                     const binaryData = atob(base64Data);
                     const bytes = new Uint8Array(binaryData.length);
@@ -1845,35 +1785,20 @@
             }
         }
         
-        function requestBulkDownload() {
+        function bulkDownload() {
             if (state.selectedFiles.length === 0) {
-                showNotification('No Selection', 'Select files to download', 'warning');
+                showNotification('No Selection', 'Please select files to download', 'warning');
                 return;
             }
             
-            if (state.isDownloadAuthorized) {
-                proceedWithBulkDownload();
-            } else {
-                showDownloadPasswordModal(null, true);
-            }
-        }
-        
-        function proceedWithBulkDownload() {
-            const filesToDownload = state.selectedFiles;
-            
-            if (filesToDownload.length === 0) {
-                showNotification('No Selection', 'No files selected', 'warning');
-                return;
-            }
-            
-            showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
+            showNotification('Preparing Download', `Preparing ${state.selectedFiles.length} files`, 'success');
             
             setTimeout(() => {
                 let content = `WebCred Solutions - File Export\n\n`;
                 content += `Export Date: ${new Date().toLocaleString()}\n`;
-                content += `Total Files: ${filesToDownload.length}\n\n`;
+                content += `Total Files: ${state.selectedFiles.length}\n\n`;
                 
-                filesToDownload.forEach((fileId, index) => {
+                state.selectedFiles.forEach((fileId, index) => {
                     const file = state.uploadedFiles.find(f => f.id === fileId);
                     if (file) {
                         content += `FILE ${index + 1}: ${file.name}\n`;
@@ -1897,7 +1822,7 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
+                showNotification('Download Complete', `${state.selectedFiles.length} files downloaded`, 'success');
             }, 1000);
         }
         
@@ -1924,7 +1849,7 @@
             const selectedCount = state.selectedFiles.length;
             
             if (selectedCount === 0) {
-                showNotification('No Selection', 'Select files to delete', 'warning');
+                showNotification('No Selection', 'Please select files to delete', 'warning');
                 return;
             }
             
@@ -1988,36 +1913,6 @@
                     item.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
                 }
             });
-        }
-        
-        // CSV Functions - SIMPLE AND WORKING
-        function exportSingleFileCSV(fileId) {
-            const file = state.uploadedFiles.find(f => f.id === fileId);
-            if (file) {
-                exportToCSV([file], `file_${file.name.replace(/\.[^/.]+$/, "")}`);
-            }
-        }
-        
-        function exportSelectedFilesCSV() {
-            if (state.selectedFiles.length === 0) {
-                showNotification('No Selection', 'Select files for CSV export', 'warning');
-                return;
-            }
-            
-            const filesToExport = state.uploadedFiles.filter(file => 
-                state.selectedFiles.includes(file.id)
-            );
-            
-            exportToCSV(filesToExport, 'selected_files');
-        }
-        
-        function exportAllFilesCSV() {
-            if (state.uploadedFiles.length === 0) {
-                showNotification('No Files', 'No files to export', 'warning');
-                return;
-            }
-            
-            exportToCSV(state.uploadedFiles, 'all_files');
         }
         
         // ============================================
@@ -2104,12 +1999,12 @@
             const description = document.getElementById('file-description').value.trim();
             
             if (!uploaderName || !organization || !purpose || !description) {
-                showNotification('Missing Information', 'Fill all fields', 'warning');
+                showNotification('Missing Information', 'Please fill all fields', 'warning');
                 return;
             }
             
             if (selectedFilesData.length === 0) {
-                showNotification('No File Selected', 'Select at least one file', 'warning');
+                showNotification('No File Selected', 'Please select at least one file', 'warning');
                 return;
             }
             
@@ -2174,12 +2069,6 @@
             if (e.key === 'Enter') login();
         });
         
-        elements.downloadLoginBtn.addEventListener('click', authorizeDownload);
-        elements.downloadPasswordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') authorizeDownload();
-        });
-        elements.cancelDownloadBtn.addEventListener('click', hideDownloadPasswordModal);
-        
         elements.exportAllCsv.addEventListener('click', exportAllFilesCSV);
         
         elements.logoutBtn.addEventListener('click', logout);
@@ -2219,7 +2108,7 @@
             selectAllFiles(e.target.checked);
         });
         
-        elements.bulkDownload.addEventListener('click', requestBulkDownload);
+        elements.bulkDownload.addEventListener('click', bulkDownload);
         elements.bulkCsv.addEventListener('click', exportSelectedFilesCSV);
         elements.bulkDelete.addEventListener('click', bulkDelete);
         
@@ -2228,7 +2117,7 @@
         // ============================================
         // GLOBAL FUNCTIONS
         // ============================================
-        window.requestDownload = requestDownload;
+        window.downloadFile = downloadFile;
         window.deleteFile = deleteFile;
         window.toggleFileSelection = toggleFileSelection;
         window.removeSelectedFile = removeSelectedFile;
