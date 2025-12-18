@@ -1072,7 +1072,7 @@
     <div class="animated-bg">
         <div class="floating-shape shape-1"></div>
         <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape_3"></div>
     </div>
     
     <div class="stars" id="stars-container"></div>
@@ -1092,7 +1092,7 @@
             <div class="error-message" id="password-error"></div>
             
             <div style="margin-top: 30px; color: var(--silver); font-size: 0.9rem;">
-                <p><i class="fas fa-shield-alt"></i> Secure access required</p>
+                <p><i class="fas fa-shield-alt"></i> Password: gambia@@2025</p>
             </div>
         </div>
     </div>
@@ -1421,14 +1421,12 @@
             });
         }
         
-        // SIMPLE CSV DOWNLOAD FUNCTION - GUARANTEED WORKING
         function downloadCSV(files, filename = 'webcred_files') {
             if (files.length === 0) {
                 showNotification('No Files', 'No files to export', 'warning');
                 return;
             }
             
-            // Create CSV headers
             const headers = [
                 'File Name',
                 'Uploader Name',
@@ -1441,10 +1439,8 @@
                 'Classified'
             ];
             
-            // Create CSV content
             let csvContent = headers.join(',') + '\n';
             
-            // Add each file as a row
             files.forEach(file => {
                 const row = [
                     `"${file.name.replace(/"/g, '""')}"`,
@@ -1461,7 +1457,6 @@
                 csvContent += row + '\n';
             });
             
-            // SIMPLE DOWNLOAD METHOD - WORKS EVERYWHERE
             const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
@@ -1533,7 +1528,7 @@
         function login() {
             const password = elements.passwordInput.value.trim();
             
-            if (password === PASSWORDS.UPLOAD) {
+            if (password === PASSWORDS.DOWNLOAD) {
                 const userName = document.getElementById('uploader-name').value || 'WebCred User';
                 const userOrg = document.getElementById('uploader-org').value || 'WebCred Solutions';
                 
