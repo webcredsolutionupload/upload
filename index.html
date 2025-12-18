@@ -1421,12 +1421,14 @@
             });
         }
         
+        // SIMPLE CSV DOWNLOAD FUNCTION - GUARANTEED WORKING
         function downloadCSV(files, filename = 'webcred_files') {
             if (files.length === 0) {
                 showNotification('No Files', 'No files to export', 'warning');
                 return;
             }
             
+            // Create CSV headers
             const headers = [
                 'File Name',
                 'Uploader Name',
@@ -1436,12 +1438,13 @@
                 'File Type',
                 'File Size',
                 'Upload Date',
-                'Classified',
-                'Download Link'
+                'Classified'
             ];
             
+            // Create CSV content
             let csvContent = headers.join(',') + '\n';
             
+            // Add each file as a row
             files.forEach(file => {
                 const row = [
                     `"${file.name.replace(/"/g, '""')}"`,
@@ -1452,26 +1455,20 @@
                     `"${getFileType(file.name)}"`,
                     `"${formatFileSize(file.size)}"`,
                     `"${formatDate(file.uploadedAt)}"`,
-                    `"${file.classified ? 'YES' : 'NO'}"`,
-                    `"webcred://file/${file.id}"`
+                    `"${file.classified ? 'YES' : 'NO'}"`
                 ].join(',');
                 
                 csvContent += row + '\n';
             });
             
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
+            // SIMPLE DOWNLOAD METHOD - WORKS EVERYWHERE
+            const encodedUri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
             const link = document.createElement('a');
-            
-            link.setAttribute('href', url);
+            link.setAttribute('href', encodedUri);
             link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
-            link.style.display = 'none';
-            
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            URL.revokeObjectURL(url);
             
             showNotification('CSV Downloaded', `${files.length} files exported to CSV`, 'success');
         }
@@ -1479,9 +1476,7 @@
         function exportSingleFileCSV(fileId) {
             const file = state.uploadedFiles.find(f => f.id === fileId);
             if (file) {
-                if (confirm(`Download CSV for "${file.name}"?`)) {
-                    downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
-                }
+                downloadCSV([file], `file_${file.name.replace(/\.[^/.]+$/, '')}`);
             }
         }
         
@@ -1495,9 +1490,7 @@
                 state.selectedFiles.includes(file.id)
             );
             
-            if (confirm(`Export ${filesToExport.length} files to CSV?`)) {
-                downloadCSV(filesToExport, 'webcred_selected_files');
-            }
+            downloadCSV(filesToExport, 'webcred_selected_files');
         }
         
         function exportAllFilesCSV() {
@@ -1514,9 +1507,7 @@
                 return;
             }
             
-            if (confirm(`Export all ${filesToExport.length} files to CSV?`)) {
-                downloadCSV(filesToExport, 'webcred_all_files');
-            }
+            downloadCSV(filesToExport, 'webcred_all_files');
         }
         
         function checkAuth() {
@@ -1811,38 +1802,38 @@
                 return;
             }
             
-            if (confirm(`Download "${file.name}"?`)) {
-                try {
-                    if (file.content) {
-                        const link = document.createElement('a');
-                        link.href = file.content;
-                        link.download = file.name;
-                        link.click();
-                    } else {
-                        const content = `WebCred Solutions - File Information\n\n` +
-                                       `File Name: ${file.name}\n` +
-                                       `Uploaded By: ${file.uploaderName}\n` +
-                                       `Organization: ${file.organization}\n` +
-                                       `Purpose: ${file.purpose}\n` +
-                                       `Description: ${file.description}\n` +
-                                       `Classified: ${file.classified ? 'YES' : 'NO'}\n` +
-                                       `Upload Date: ${formatDate(file.uploadedAt)}\n` +
-                                       `File Size: ${formatFileSize(file.size)}`;
-                        
-                        const blob = new Blob([content], { type: 'text/plain' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = file.name.endsWith('.txt') ? file.name : `${file.name}.txt`;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    }
+            try {
+                if (file.content) {
+                    const link = document.createElement('a');
+                    link.href = file.content;
+                    link.download = file.name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    const content = `WebCred Solutions - File Information\n\n` +
+                                   `File Name: ${file.name}\n` +
+                                   `Uploaded By: ${file.uploaderName}\n` +
+                                   `Organization: ${file.organization}\n` +
+                                   `Purpose: ${file.purpose}\n` +
+                                   `Description: ${file.description}\n` +
+                                   `Classified: ${file.classified ? 'YES' : 'NO'}\n` +
+                                   `Upload Date: ${formatDate(file.uploadedAt)}\n` +
+                                   `File Size: ${formatFileSize(file.size)}`;
                     
-                    showNotification('Download Started', `Downloading "${file.name}"`, 'success');
-                } catch (error) {
-                    console.error('Download error:', error);
-                    showNotification('Download Error', 'Failed to download file', 'error');
+                    const encodedUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+                    const link = document.createElement('a');
+                    link.setAttribute('href', encodedUri);
+                    link.setAttribute('download', file.name.endsWith('.txt') ? file.name : `${file.name}.txt`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 }
+                
+                showNotification('Download Started', `Downloading "${file.name}"`, 'success');
+            } catch (error) {
+                console.error('Download error:', error);
+                showNotification('Download Error', 'Failed to download file', 'error');
             }
         }
         
@@ -1856,37 +1847,35 @@
                 return;
             }
             
-            if (confirm(`Download ${filesToDownload.length} selected files?`)) {
-                showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
+            showNotification('Preparing Download', `Preparing ${filesToDownload.length} files`, 'success');
+            
+            setTimeout(() => {
+                let content = `WebCred Solutions - File Export\n\n`;
+                content += `Export Date: ${new Date().toLocaleString()}\n`;
+                content += `Total Files: ${filesToDownload.length}\n\n`;
                 
-                setTimeout(() => {
-                    let content = `WebCred Solutions - File Export\n\n`;
-                    content += `Export Date: ${new Date().toLocaleString()}\n`;
-                    content += `Total Files: ${filesToDownload.length}\n\n`;
-                    
-                    filesToDownload.forEach((file, index) => {
-                        content += `FILE ${index + 1}: ${file.name}\n`;
-                        content += `Uploaded By: ${file.uploaderName}\n`;
-                        content += `Organization: ${file.organization}\n`;
-                        content += `Purpose: ${file.purpose}\n`;
-                        content += `Description: ${file.description}\n`;
-                        content += `Classified: ${file.classified ? 'YES' : 'NO'}\n`;
-                        content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
-                        content += `File Size: ${formatFileSize(file.size)}\n`;
-                        content += '─'.repeat(50) + '\n\n';
-                    });
-                    
-                    const blob = new Blob([content], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `webcred_export_${new Date().toISOString().split('T')[0]}.txt`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    
-                    showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
-                }, 1000);
-            }
+                filesToDownload.forEach((file, index) => {
+                    content += `FILE ${index + 1}: ${file.name}\n`;
+                    content += `Uploaded By: ${file.uploaderName}\n`;
+                    content += `Organization: ${file.organization}\n`;
+                    content += `Purpose: ${file.purpose}\n`;
+                    content += `Description: ${file.description}\n`;
+                    content += `Classified: ${file.classified ? 'YES' : 'NO'}\n`;
+                    content += `Upload Date: ${formatDate(file.uploadedAt)}\n`;
+                    content += `File Size: ${formatFileSize(file.size)}\n`;
+                    content += '─'.repeat(50) + '\n\n';
+                });
+                
+                const encodedUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', `webcred_export_${new Date().toISOString().split('T')[0]}.txt`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('Download Complete', `${filesToDownload.length} files downloaded`, 'success');
+            }, 1000);
         }
         
         function deleteFile(fileId) {
